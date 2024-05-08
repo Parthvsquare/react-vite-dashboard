@@ -32,6 +32,8 @@ const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
+  backgroundColor: "#37146B",
+  color: "white",
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -44,7 +46,9 @@ const closedMixin = (theme: Theme): CSSObject => ({
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
+  backgroundColor: "#37146B",
   overflowX: "hidden",
+  color: "white",
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up("sm")]: {
     width: `calc(${theme.spacing(8)} + 1px)`,
@@ -84,15 +88,16 @@ const Drawer = styled(MuiDrawer, {
   flexShrink: 0,
   whiteSpace: "nowrap",
   boxSizing: "border-box",
-  color: "red",
-  backgroundColor: "red",
+  backgroundColor: "purple",
   ...(open && {
     ...openedMixin(theme),
     "& .MuiDrawer-paper": openedMixin(theme),
+    backgroundColor: "purple",
   }),
   ...(!open && {
     ...closedMixin(theme),
     "& .MuiDrawer-paper": closedMixin(theme),
+    backgroundColor: "purple",
   }),
 }));
 
@@ -150,8 +155,8 @@ export default function MiniDrawer() {
           </Box>
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open} className="bg-purple-700">
-        <DrawerHeader className="bg-purple-700 p-0">
+      <Drawer variant="permanent" open={open}>
+        <DrawerHeader className="p-0 text-white">
           <List className="w-full">
             <ListItem disablePadding sx={{ display: "block" }}>
               <ListItemButton disableRipple>
@@ -172,8 +177,8 @@ export default function MiniDrawer() {
             </ListItem>
           </List>
         </DrawerHeader>
-        <Divider />
-        <List>
+        <Divider className="bg-[#4D1B95]" />
+        <List className="">
           <ListItem
             key={"application"}
             disablePadding
@@ -193,7 +198,7 @@ export default function MiniDrawer() {
                   justifyContent: "center",
                 }}
               >
-                <FourBoxesIcon className="size-5" />
+                <FourBoxesIcon className="size-5 " />
               </ListItemIcon>
               <ListItemText
                 primary="Application"
@@ -201,7 +206,7 @@ export default function MiniDrawer() {
               />
             </ListItemButton>
           </ListItem>
-          <Divider />
+          <Divider className="bg-[#4D1B95]" />
           {SectionOne.map((text, index) => {
             const Icon = text.icon;
             return (
@@ -222,20 +227,33 @@ export default function MiniDrawer() {
                       minWidth: 0,
                       mr: open ? 3 : "auto",
                       justifyContent: "center",
+                      color: "white",
                     }}
                   >
                     <Icon key={index} />
                   </ListItemIcon>
-                  <ListItemText
-                    primary={text.title}
-                    sx={{ opacity: open ? 1 : 0 }}
-                  />
+                  {!text.tag ? (
+                    <ListItemText
+                      primary={text.title}
+                      sx={{ opacity: open ? 1 : 0 }}
+                    />
+                  ) : (
+                    <ListItemText
+                      primary={text.title}
+                      sx={{ opacity: open ? 1 : 0 }}
+                      secondary={
+                        <span className="text-xs capitalize text-red-500">
+                          {text.tag}
+                        </span>
+                      }
+                    ></ListItemText>
+                  )}
                 </ListItemButton>
               </ListItem>
             );
           })}
         </List>
-        <Divider />
+        <Divider className="bg-[#4D1B95]" />
         <List
           sx={{
             position: "absolute",
@@ -257,6 +275,7 @@ export default function MiniDrawer() {
                     minWidth: 0,
                     mr: open ? 3 : "auto",
                     justifyContent: "center",
+                    color: "white",
                   }}
                 >
                   {index === 0 && <Person />}
@@ -266,7 +285,7 @@ export default function MiniDrawer() {
               </ListItemButton>
             </ListItem>
           ))}
-          <Divider />
+          <Divider className="bg-[#4D1B95]" />
 
           <ListItem disablePadding sx={{ display: "block" }}>
             <ListItemButton
@@ -285,6 +304,7 @@ export default function MiniDrawer() {
                     minWidth: 0,
                     mr: open ? 3 : "auto",
                     justifyContent: "center",
+                    color: "white",
                   }}
                 >
                   <KeyboardDoubleArrowLeft />
@@ -295,6 +315,7 @@ export default function MiniDrawer() {
                     minWidth: 0,
                     mr: open ? 3 : "auto",
                     justifyContent: "center",
+                    color: "white",
                   }}
                 >
                   <KeyboardDoubleArrowRight />

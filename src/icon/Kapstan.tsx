@@ -5,6 +5,7 @@ function KapstanIcon({ className }: { className?: string }) {
       height="32"
       viewBox="0 0 35 32"
       fill="none"
+      color="black"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
