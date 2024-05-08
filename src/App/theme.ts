@@ -1,4 +1,9 @@
-import { PaletteOptions, alpha, getContrastRatio } from "@mui/material/styles";
+import {
+  PaletteOptions,
+  ThemeOptions,
+  alpha,
+  getContrastRatio,
+} from "@mui/material/styles";
 
 // Augment the palette to include a violet color
 declare module "@mui/material/styles" {
@@ -14,7 +19,7 @@ declare module "@mui/material/styles" {
 const violetBase = "#7F00FF";
 const violetMain = alpha(violetBase, 0.7);
 
-const customTheme: Record<"palette", PaletteOptions> = {
+const customPalette: Record<"palette", PaletteOptions> = {
   palette: {
     violet: {
       main: violetMain,
@@ -25,4 +30,11 @@ const customTheme: Record<"palette", PaletteOptions> = {
     },
   },
 };
-export default customTheme;
+
+const customTheme: ThemeOptions = {
+  typography: {
+    fontFamily: "Inter",
+  },
+};
+
+export { customPalette, customTheme };

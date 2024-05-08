@@ -1,11 +1,11 @@
 import AppRouter from "@/router";
+import ColorModeContext from "@/store";
+import { useMediaQuery } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { useMemo, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
-import customTheme from "./theme";
-import { createContext, useMemo, useState } from "react";
-import { useMediaQuery } from "@mui/material";
-import ColorModeContext from "@/store";
+import { customPalette, customTheme } from "./theme";
 
 function App() {
   const [mode, setMode] = useState<"light" | "dark">("light");
@@ -26,8 +26,9 @@ function App() {
       createTheme({
         palette: {
           mode: mode,
-          ...customTheme.palette,
+          ...customPalette.palette,
         },
+        ...customTheme,
       }),
     [prefersDarkMode, mode],
   );
