@@ -1,6 +1,6 @@
 import axios from "axios";
-import { API_BASE_URL } from "./constant.js";
-import { endpoints } from "./apiEndpoints.js";
+import { API_BASE_URL } from "./constant";
+import { endpoints } from "./apiEndpoints";
 
 const retoolBaseApi = axios.create({
   baseURL: API_BASE_URL,

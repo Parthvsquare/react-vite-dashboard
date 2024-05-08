@@ -14,10 +14,12 @@ import { useSearchParams } from "react-router-dom";
 import Overview from "@/components/Overview";
 import EnvironmentVariables from "@/components/EnvVariables";
 import InProgress from "@/components/InProgress";
+import SystemMetrics from "@/components/SystemMetrics";
+import EventHistory from "@/components/EventHistory";
 
 function Home() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [value, setValue] = useState(Number(searchParams.get("tab")) || 0);
+  const [value, setValue] = useState(Number(searchParams.get("tabs")) || 0);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedApplication] = useAtom(selectedApplicationStore);
   const open = Boolean(anchorEl);
@@ -33,7 +35,8 @@ function Home() {
     value: any,
   ) => {
     setValue(value);
-    setSearchParams({ tab: value });
+    setSearchParams({ tabs: value });
+    // setSearchParams((prev) => [...prev.entries(), ["tabs", value]]);
   };
 
   return (
@@ -105,6 +108,15 @@ function Home() {
         </Tabs>
       </Box>
       <TabsComponent value={value} />
+      {/* graphs */}
+      <div className="mt-5 grid grid-cols-5 gap-4">
+        <div className="col-span-3">
+          <SystemMetrics />
+        </div>
+        <div className="col-span-2">
+          <EventHistory />
+        </div>
+      </div>
     </div>
   );
 }
