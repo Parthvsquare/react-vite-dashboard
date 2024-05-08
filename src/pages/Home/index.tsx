@@ -11,6 +11,9 @@ import { useAtom } from "jotai";
 import { useState } from "react";
 import { options } from "./util";
 import { useSearchParams } from "react-router-dom";
+import Overview from "@/components/Overview";
+import EnvironmentVariables from "@/components/EnvVariables";
+import InProgress from "@/components/InProgress";
 
 function Home() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -101,8 +104,24 @@ function Home() {
           />
         </Tabs>
       </Box>
+      <TabsComponent value={value} />
     </div>
   );
 }
 
 export default Home;
+
+function TabsComponent({ value }: { value: number }) {
+  switch (value) {
+    case 0:
+      return <Overview />;
+    case 1:
+      return <EnvironmentVariables />;
+    case 2:
+      return <InProgress />;
+    case 3:
+      return <InProgress />;
+    default:
+      return <Overview />;
+  }
+}
