@@ -5,8 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import customTheme from "./theme";
 import { createContext, useMemo, useState } from "react";
 import { useMediaQuery } from "@mui/material";
-
-export const ColorModeContext = createContext({ toggleColorMode: () => {} });
+import ColorModeContext from "@/store";
 
 function App() {
   const [mode, setMode] = useState<"light" | "dark">("light");
@@ -30,7 +29,7 @@ function App() {
           ...customTheme.palette,
         },
       }),
-    [prefersDarkMode],
+    [prefersDarkMode, mode],
   );
 
   return (
