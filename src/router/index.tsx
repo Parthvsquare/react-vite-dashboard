@@ -1,10 +1,8 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-// import Board from "@/pages/Board";
 import HomeLayout from "@/layout/HomeLayout";
 import Login from "@/pages/Login";
 import NotFound from "@/pages/NotFound";
 import Home from "@/pages/Home";
-import MiniDrawer from "@/components/AppDrawer";
 
 const AppRouter = () => {
   return (
@@ -12,7 +10,7 @@ const AppRouter = () => {
       <Routes>
         <Route
           path="/"
-          element={true ? <MiniDrawer /> : <Navigate to="login" />}
+          element={true ? <HomeLayout /> : <Navigate to="login" />}
         >
           <Route index element={<Home />} />
         </Route>

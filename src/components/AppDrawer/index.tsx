@@ -1,3 +1,4 @@
+import { drawerWidth } from "@/common";
 import { FourBoxesIcon, KapstanIcon } from "@/icon";
 import ColorModeContext from "@/store";
 import {
@@ -6,29 +7,18 @@ import {
   KeyboardDoubleArrowRight,
   Person,
 } from "@mui/icons-material";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
-import MailIcon from "@mui/icons-material/Mail";
-import MenuIcon from "@mui/icons-material/Menu";
-import ModeNightIcon from "@mui/icons-material/ModeNight";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import MuiDrawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import { CSSObject, Theme, styled, useTheme } from "@mui/material/styles";
 import { useContext, useState } from "react";
-import { Outlet } from "react-router-dom";
+import AppHeader from "../AppHeader";
 import { SectionOne } from "./util";
-
-const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -64,23 +54,6 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-interface AppBarProps extends MuiAppBarProps {
-  open?: boolean;
-}
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})<AppBarProps>(({ theme, open }) => ({
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
@@ -101,22 +74,15 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function MiniDrawer() {
+export default function AppDrawer({ children }: { children: React.ReactNode }) {
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
   const [open, setOpen] = useState(false);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
   return (
     <Box sx={{ display: "flex" }}>
-      <AppBar position="fixed" open={open}>
+      <AppHeader open={open} />
+      {/* <AppBar position="fixed" open={open}>
         <Toolbar>
           <Box
             display="flex"
@@ -154,7 +120,7 @@ export default function MiniDrawer() {
             </Box>
           </Box>
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
       <Drawer variant="permanent" open={open}>
         <DrawerHeader className="p-0 text-white">
           <List className="w-full">
@@ -327,7 +293,7 @@ export default function MiniDrawer() {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <div className="mt-12" />
-        <Outlet />
+        {children}
       </Box>
     </Box>
   );

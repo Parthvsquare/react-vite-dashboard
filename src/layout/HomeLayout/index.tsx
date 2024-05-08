@@ -1,14 +1,15 @@
+import AppDrawer from "@/components/AppDrawer";
 import { Skeleton } from "@mui/material";
 import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 
 function HomeLayout() {
   return (
-    <div className="h-full overflow-x-auto bg-white pt-14 dark:bg-gray-900 dark:text-white">
+    <AppDrawer>
       <Suspense fallback={<LoadingSkeleton />}>
         <Outlet />
       </Suspense>
-    </div>
+    </AppDrawer>
   );
 }
 
