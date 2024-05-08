@@ -4,25 +4,15 @@ import HomeLayout from "@/layout/HomeLayout";
 import Login from "@/pages/Login";
 import NotFound from "@/pages/NotFound";
 import Home from "@/pages/Home";
+import MiniDrawer from "@/components/AppDrawer";
 
 const AppRouter = () => {
   return (
     <div className="h-screen">
-      {/* <AppHeader collapsed={collapsed} setCollapsed={setCollapsed} /> */}
-      <header className="fixed h-auto w-full bg-gray-100 dark:bg-gray-800 dark:text-white">
-        <div className="flex items-center justify-between px-10 py-3">
-          <div className="flex gap-x-3">
-            <div className="">
-              <div className="">React Dashboard</div>
-            </div>
-          </div>
-        </div>
-      </header>
-      {/* {isLoggedIn && <BreadCrumbs />} */}
       <Routes>
         <Route
           path="/"
-          element={true ? <HomeLayout /> : <Navigate to="login" />}
+          element={true ? <MiniDrawer /> : <Navigate to="login" />}
         >
           <Route index element={<Home />} />
         </Route>
