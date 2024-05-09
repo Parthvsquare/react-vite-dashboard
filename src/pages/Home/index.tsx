@@ -120,7 +120,9 @@ function Home() {
           />
         </Tabs>
       </Box>
-      <TabsComponent value={value} />
+      <div className="pt-4">
+        <TabsComponent value={value} />
+      </div>
     </div>
   );
 }

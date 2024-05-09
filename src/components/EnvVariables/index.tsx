@@ -4,6 +4,7 @@ import { Add, Delete, Edit, FileDownload } from "@mui/icons-material";
 import {
   Box,
   Button,
+  Divider,
   Drawer,
   FormControl,
   IconButton,
@@ -39,30 +40,40 @@ function EnvironmentVariables() {
             </IconButton>
           </div>
         </div>
-        <div className="flex flex-col items-start justify-between border-2 border-red-800">
+        <List className="items-start justify-between">
           {storedEnv.map((env, index) => (
-            <div
-              className="flex rounded-lg border border-gray-800 px-4 py-2"
-              key={index}
-            >
-              <div className="flex flex-col">
-                <span className="font-bold">{env.key}</span>
-                <span>{env.value}</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <IconButton aria-label="edit-env" onClick={() => setOpen(true)}>
-                  <Edit />
-                </IconButton>
-                <IconButton
-                  aria-label="delete-env"
-                  onClick={() => handleDeleteEnv({ id: env.id })}
-                >
-                  <Delete />
-                </IconButton>
-              </div>
-            </div>
+            <>
+              <ListItem
+                className="flex w-full rounded-lg border-2 px-4 py-2"
+                key={index}
+              >
+                <div className="flex w-full items-center gap-x-8">
+                  <span className="font-bold">
+                    <strong>Key:</strong> {env.key}
+                  </span>
+                  <span>
+                    <strong>Value:</strong> {env.value}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <IconButton
+                    aria-label="edit-env"
+                    onClick={() => setOpen(true)}
+                  >
+                    <Edit />
+                  </IconButton>
+                  <IconButton
+                    aria-label="delete-env"
+                    onClick={() => handleDeleteEnv({ id: env.id })}
+                  >
+                    <Delete />
+                  </IconButton>
+                </div>
+              </ListItem>
+              <Divider />
+            </>
           ))}
-        </div>
+        </List>
       </div>
       {open && <EnvDrawer open={open} handleClose={setOpen} />}
     </Paper>

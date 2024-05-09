@@ -13,7 +13,7 @@ const desiredVersion = "1.2.1";
 
 function Overview() {
   return (
-    <div className="mt-5">
+    <div>
       <Accordion defaultExpanded>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
