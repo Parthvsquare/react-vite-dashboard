@@ -5,5 +5,13 @@ interface EventHistory {
   timestamp: string;
   applicationId: string;
 }
+interface Application {
+  id: number;
+  name: string;
+  status: string;
+  version: string;
+  updatedAt: string;
+  desiredVersion: string;
+}
 
-export type { EventHistory };
+export type { EventHistory, Application };

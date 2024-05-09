@@ -1,4 +1,6 @@
 import { drawerWidth } from "@/common";
+import { allApplications } from "@/common/endpoints";
+import { type Application } from "@/common/types/custom";
 import ColorModeContext from "@/store";
 import {
   applicationsStore,
@@ -10,6 +12,7 @@ import ModeNightIcon from "@mui/icons-material/ModeNight";
 import {
   Avatar,
   Button,
+  CircularProgress,
   FormControl,
   InputLabel,
   Menu,
@@ -23,8 +26,9 @@ import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import { deepOrange } from "@mui/material/colors";
 import { styled, useTheme } from "@mui/material/styles";
+import { useQuery } from "@tanstack/react-query";
 import { useAtom } from "jotai";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
@@ -63,12 +67,34 @@ function AppHeader({ open }: IProps) {
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
 
-  const [allApplications] = useAtom(applicationsStore);
+  const [allApplicationStore, setApplicationStore] = useAtom(applicationsStore);
+
   const [application, setApplication] = useAtom(selectedApplicationStore);
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setApplication(event.target.value);
-  };
+  const { data: allApplicationData, isLoading } = useQuery<
+    Record<"data", Application[]>
+  >({
+    queryKey: ["allApplications"],
+    queryFn: () => allApplications(),
+  });
+
+  useEffect(() => {
+    if (!isLoading) {
+      setApplicationStore(allApplicationData?.data || []);
+    } else {
+      setApplicationStore([]);
+    }
+  }, [isLoading, allApplicationData]);
+
+  function handleChange(
+    event: SelectChangeEvent<Application>,
+    child: React.ReactNode,
+  ) {
+    const application = allApplicationStore.find(
+      (app) => app.name === event.target.value,
+    ) as Application;
+    setApplication(application);
+  }
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const openProfile = Boolean(anchorEl);
@@ -91,7 +117,7 @@ function AppHeader({ open }: IProps) {
           width={"100%"}
         >
           <Box>
-            <FormControl className="min-w-[200px]" size="small">
+            <FormControl className="min-w-[200px]">
               <InputLabel
                 variant="standard"
                 id="applications-label"
@@ -107,11 +133,17 @@ function AppHeader({ open }: IProps) {
                 onChange={handleChange}
                 variant="standard"
               >
-                {allApplications.map((app, index) => (
-                  <MenuItem key={app + index} value={app}>
-                    {app}
+                {isLoading && (
+                  <MenuItem value="loading">
+                    <CircularProgress size={20} />
                   </MenuItem>
-                ))}
+                )}
+                {!isLoading &&
+                  allApplicationStore.map((app, index) => (
+                    <MenuItem key={app.id + index} value={app.name}>
+                      {app.name}
+                    </MenuItem>
+                  ))}
               </Select>
             </FormControl>
           </Box>

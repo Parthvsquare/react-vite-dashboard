@@ -1,3 +1,8 @@
+import EnvironmentVariables from "@/components/EnvVariables";
+import EventHistory from "@/components/EventHistory";
+import InProgress from "@/components/InProgress";
+import Overview from "@/components/Overview";
+import SystemMetrics from "@/components/SystemMetrics";
 import { selectedApplicationStore } from "@/store/jotaiStore";
 import {
   Computer,
@@ -6,16 +11,19 @@ import {
   Settings,
 } from "@mui/icons-material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { Box, IconButton, Menu, MenuItem, Tab, Tabs } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  Menu,
+  MenuItem,
+  Paper,
+  Tab,
+  Tabs,
+} from "@mui/material";
 import { useAtom } from "jotai";
 import { useState } from "react";
-import { options } from "./util";
 import { useSearchParams } from "react-router-dom";
-import Overview from "@/components/Overview";
-import EnvironmentVariables from "@/components/EnvVariables";
-import InProgress from "@/components/InProgress";
-import SystemMetrics from "@/components/SystemMetrics";
-import EventHistory from "@/components/EventHistory";
+import { options } from "./util";
 
 function Home() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -36,13 +44,20 @@ function Home() {
   ) => {
     setValue(value);
     setSearchParams({ tabs: value });
-    // setSearchParams((prev) => [...prev.entries(), ["tabs", value]]);
   };
+
+  if (!selectedApplication) {
+    return (
+      <Paper className="grid place-items-center p-10">
+        No application selected
+      </Paper>
+    );
+  }
 
   return (
     <div>
       <div className="item-center flex w-full justify-between">
-        <h2>{selectedApplication}</h2>
+        <h2>{selectedApplication?.name}</h2>
         <div className="flex items-center justify-center">
           <div>
             <div className="flex items-center justify-center gap-x-2 rounded-md border-2 !border-green-700 bg-green-100 px-2 py-1 text-sm text-green-700">
