@@ -1,5 +1,5 @@
 import { cpuUtilization, memoryUtilization } from "@/common/endpoints";
-import { Paper, Tab, Tabs } from "@mui/material";
+import { Paper, Tab, Tabs, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -26,17 +26,24 @@ function SystemMetrics() {
 
   return (
     <Paper>
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        indicatorColor="primary"
-        textColor="primary"
-        centered
-      >
-        <Tab label="Item One" />
-        <Tab label="Item Two" />
-        <Tab label="Item Three" />
-      </Tabs>
+      <Typography variant="h6" className="p-5 font-bold">
+        System Metrics
+      </Typography>
+      <div className="mx-auto w-11/12">
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+          centered
+          variant="fullWidth"
+          className="w-full"
+        >
+          <Tab label="CPU" />
+          <Tab label="Memory" />
+        </Tabs>
+        <section>{/* graph */}</section>
+      </div>
     </Paper>
   );
 }
