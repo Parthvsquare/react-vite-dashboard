@@ -19,11 +19,20 @@ import { Controller, useFieldArray, useForm } from "react-hook-form";
 
 function EnvironmentVariables() {
   const [storedEnv, setStoredEnv] = useAtom(environmentStore);
-  console.log("===> ~ EnvironmentVariables ~ storedEnv:", storedEnv);
   const [open, setOpen] = useState(false);
   function handleDeleteEnv({ id }: { id?: string }) {
     if (!id) return;
     setStoredEnv((prev) => prev.filter((env) => env.id !== id));
+  }
+
+  function downloadEnv() {
+    const env = storedEnv.map((env) => `${env.key}=${env.value}`).join("\n");
+    const blob = new Blob([env], { type: "application/octet-stream" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = ".env";
+    a.click();
   }
 
   return (
@@ -35,7 +44,7 @@ function EnvironmentVariables() {
             <IconButton aria-label="add-env" onClick={() => setOpen(true)}>
               <Add />
             </IconButton>
-            <IconButton aria-label="download-env">
+            <IconButton aria-label="download-env" onClick={downloadEnv}>
               <FileDownload />
             </IconButton>
           </div>
@@ -44,18 +53,18 @@ function EnvironmentVariables() {
           {storedEnv.map((env, index) => (
             <>
               <ListItem
-                className="flex w-full rounded-lg border-2 px-4 py-2"
+                className="flex w-full justify-between rounded-lg border-2 px-4 py-2"
                 key={index}
               >
-                <div className="flex w-full items-center gap-x-8">
-                  <span className="font-bold">
+                <div className="flex w-full basis-4/5 items-center">
+                  <span className="basis-1/2 font-bold">
                     <strong>Key:</strong> {env.key}
                   </span>
-                  <span>
+                  <span className="basis-1/2">
                     <strong>Value:</strong> {env.value}
                   </span>
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex basis-auto items-center justify-between">
                   <IconButton
                     aria-label="edit-env"
                     onClick={() => setOpen(true)}
