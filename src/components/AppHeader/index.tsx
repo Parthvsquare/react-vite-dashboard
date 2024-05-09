@@ -106,7 +106,7 @@ function AppHeader({ open }: IProps) {
   };
 
   return (
-    <AppBar position="fixed" open={open} elevation={0}>
+    <AppBar position="fixed" open={open} elevation={1}>
       <Toolbar>
         <Box
           display="flex"

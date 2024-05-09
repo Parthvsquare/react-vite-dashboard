@@ -6,13 +6,15 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { CheckCircleOutlineOutlined, Circle } from "@mui/icons-material";
 import { Typography } from "@mui/material";
+import SystemMetrics from "../SystemMetrics";
+import EventHistory from "../EventHistory";
 
 const desiredVersion = "1.2.1";
 
 function Overview() {
   return (
     <div className="mt-5">
-      <Accordion>
+      <Accordion defaultExpanded>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           id="service-info-header"
@@ -41,6 +43,15 @@ function Overview() {
           </div>
         </AccordionDetails>
       </Accordion>
+
+      <div className="mt-5 grid grid-cols-5 gap-4">
+        <div className="col-span-3">
+          <SystemMetrics />
+        </div>
+        <div className="col-span-2">
+          <EventHistory />
+        </div>
+      </div>
     </div>
   );
 }

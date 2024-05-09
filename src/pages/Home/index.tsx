@@ -1,5 +1,4 @@
 import EnvironmentVariables from "@/components/EnvVariables";
-import EventHistory from "@/components/EventHistory";
 import InProgress from "@/components/InProgress";
 import Overview from "@/components/Overview";
 import { selectedApplicationStore } from "@/store/jotaiStore";
@@ -23,7 +22,6 @@ import { useAtom } from "jotai";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { options } from "./util";
-import SystemMetrics from "@/components/SystemMetrics";
 
 function Home() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -123,15 +121,6 @@ function Home() {
         </Tabs>
       </Box>
       <TabsComponent value={value} />
-      {/* graphs */}
-      <div className="mt-5 grid grid-cols-5 gap-4">
-        <div className="col-span-3">
-          <SystemMetrics />
-        </div>
-        <div className="col-span-2">
-          <EventHistory />
-        </div>
-      </div>
     </div>
   );
 }

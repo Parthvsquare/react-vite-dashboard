@@ -27,4 +27,16 @@ interface CpuUtilization {
   cpuUtilization: string;
 }
 
-export type { EventHistory, Application, MemoryUtilization, CpuUtilization };
+interface EnvStore {
+  key: string;
+  value: string;
+  id?: string;
+}
+
+export type {
+  EventHistory,
+  Application,
+  MemoryUtilization,
+  CpuUtilization,
+  EnvStore,
+};
