@@ -83,7 +83,7 @@ function EventHistory() {
                     >
                       <TableCell component="th" scope="row">
                         <span>
-                          <span className="block font-medium">Deploy</span>
+                          <span className="block font-medium">{row.event}</span>
                           <Typography
                             variant="caption"
                             className="block text-gray-600"
@@ -178,7 +178,7 @@ function EventHistoryDialog({
                     >
                       <TableCell component="th" scope="row">
                         <span>
-                          <span className="font-medium">Deploy</span>
+                          <span className="font-medium">{row.event}</span>
                           <br />
                           <Typography
                             variant="caption"

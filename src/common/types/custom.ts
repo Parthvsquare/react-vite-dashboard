@@ -4,6 +4,7 @@ interface EventHistory {
   version: string;
   timestamp: string;
   applicationId: string;
+  event: string;
 }
 interface Application {
   id: number;
