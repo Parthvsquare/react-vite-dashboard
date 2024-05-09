@@ -2,7 +2,6 @@ import EnvironmentVariables from "@/components/EnvVariables";
 import EventHistory from "@/components/EventHistory";
 import InProgress from "@/components/InProgress";
 import Overview from "@/components/Overview";
-import SystemMetrics from "@/components/SystemMetrics";
 import { selectedApplicationStore } from "@/store/jotaiStore";
 import {
   Computer,
@@ -24,6 +23,7 @@ import { useAtom } from "jotai";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { options } from "./util";
+import SystemMetrics from "@/components/SystemMetrics";
 
 function Home() {
   const [searchParams, setSearchParams] = useSearchParams();
